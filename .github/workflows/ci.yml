@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [ "ai-version-1", "ai-version-2", "ai-version-3" ]
   workflow_dispatch:
+    # Оставили выбор ветки для ручного запуска, GitHub сам всё поймет
     inputs:
       branch:
         description: 'Ветка для тестирования'
@@ -23,8 +24,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.inputs.branch || github.ref }}
+        # Убрали блок with: ref: ... - он тут только всё ломал
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
