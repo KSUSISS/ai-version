@@ -1,20 +1,28 @@
-namespace Module.Core
+namespace Module.Core;
+
+public class Calculator
 {
-    public class Calculator
+    public double Add(double a, double b)
     {
-        public double Add(double a, double b) => a + b;
+        return a + b;
+    }
 
-        public double Subtract(double a, double b) => a - b;
+    public double Subtract(double a, double b)
+    {
+        return a - b;
+    }
 
-        public double Multiply(double a, double b) => a * b;
+    public double Multiply(double a, double b)
+    {
+        return a * b;
+    }
 
-        public double Divide(double a, double b)
+    public double Divide(double a, double b)
+    {
+        if (b == 0)
         {
-            if (b == 0)
-            {
-                throw new System.DivideByZeroException("Division by zero is not allowed");
-            }
-            return a / b;
+            throw new DivideByZeroException("Division by zero is not allowed");
         }
+        return a / b;
     }
 }
