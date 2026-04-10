@@ -15,11 +15,11 @@ jobs:
     steps:
       # Шаг 1: Скачать код из репозитория
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Шаг 2: Установить .NET 6
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 6.0.x
 
@@ -37,7 +37,7 @@ jobs:
 
       # Шаг 6: Сохранить результаты тестов как артефакт
       - name: Publish Test Results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: nunit-test-results-${{ github.ref_name }}
