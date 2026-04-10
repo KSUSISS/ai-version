@@ -1,0 +1,44 @@
+# Название пайплайна
+name: .NET CI Pipeline (NUnit)
+
+# Триггеры запуска
+on:
+  push:
+    branches: [ "main", "ai-version-1", "ai-version-2", "ai-version-3" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: # Ручной запуск через интерфейс GitHub
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      # Шаг 1: Скачать код из репозитория
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Шаг 2: Установить .NET 6
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 6.0.x
+
+      # Шаг 3: Восстановить зависимости
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # Шаг 4: Собрать проект
+      - name: Build
+        run: dotnet build --no-restore
+
+      # Шаг 5: Запустить тесты
+      - name: Test
+        run: dotnet test --no-build --verbosity normal --logger "console;verbosity=detailed"
+
+      # Шаг 6: Сохранить результаты тестов как артефакт
+      - name: Publish Test Results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: nunit-test-results-${{ github.ref_name }}
+          path: '**/*.trx'
