@@ -1,0 +1,26 @@
+name: .NET CI Pipeline (NUnit)
+
+on:
+  push:
+    branches: [ "ai-version-1", "ai-version-2", "ai-version-3" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore ai-version.sln
+
+      - name: Build
+        run: dotnet build ai-version.sln --no-restore
+
+      - name: Test
+        run: dotnet test ai-version.sln --no-build --verbosity normal --logger "console;verbosity=detailed"
