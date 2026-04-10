@@ -25,15 +25,13 @@ jobs:
 
       # Шаг 3: Восстановить зависимости
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ai-version.sln
 
-      # Шаг 4: Собрать проект
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build ai-version.sln --no-restore
 
-      # Шаг 5: Запустить тесты
       - name: Test
-        run: dotnet test --no-build --verbosity normal --logger "console;verbosity=detailed"
+        run: dotnet test ai-version.sln --no-build --verbosity normal --logger "console;verbosity=detailed"
 
       # Шаг 6: Сохранить результаты тестов как артефакт
       - name: Publish Test Results
