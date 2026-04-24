@@ -1,3 +1,4 @@
+using System;
 namespace Module.Core
 {
     public class Calculator
